@@ -5,11 +5,7 @@ class PullerController < ApplicationController
 		p params
 		scriptPath = Rails.root.join(SYNC_SCRIPT)
 		p 'Script: ' + scriptPath.to_s
-		begin
-	    	p Bundler.clean_exec(scriptPath.to_s)
-	    rescue => ex
-	    	p ex
-	    end
-		head 200
+		result = Bundler.clean_system(scriptPath.to_s)
+		render :text => "Done", :status => 200
 	end
 end
